@@ -9,23 +9,31 @@ function cadastrarProduto() {
 
     // Definir nome,estoque,minimo
     produto.nome = prompt('Nome do produto: ');
-    produto.estoque = Number(prompt('Quantidade inicial em estoque (Enter = 0): '));
-    produto.minimo = Number(prompt('Quantidade mínima de estoque (Enter = 0): '));
+    let estoqueTexto = prompt('Quantidade inicial em estoque: ');
+    let minimoTexto = prompt('Quantidade mínima de estoque: ');
 
     // Verificação
-    while (produto.estoque < 0 || produto.minimo < 0 || Number.isNaN(produto.estoque) || Number.isNaN(produto.minimo)) {
-        console.log('Entrada inválida! Estoque e quantidade mínima devem ser números válidos e iguais ou maiores que zero. Não são permitidos textos ou números negativos.');
-        produto.estoque = Number(prompt('Quantidade inicial em estoque: '));
-        produto.minimo = Number(prompt('Quantidade mínima de estoque: '));
+    while ((estoqueTexto !== '' && !/^\d+(\.\d+)?$/.test(estoqueTexto)) || (minimoTexto !== '' && !/^\d+(\.\d+)?$/.test(minimoTexto))) {
+        console.log('Entrada inválida! Digite números válidos, sem letras ou valores negativos.');
+
+        estoqueTexto = prompt('Quantidade inicial em estoque: ');
+        minimoTexto = prompt('Quantidade mínima de estoque: ');
     }
+
     while (produto.nome.trim().length < 1) {
         console.log('Nome inválido! O produto precisa ter um nome e não pode conter apenas espaços.');
         produto.nome = prompt('Nome do produto: ');
     }
 
+    // Converter depois da validação
+    produto.estoque = Number(estoqueTexto);
+    produto.minimo = Number(minimoTexto);
+    produto.nome = produto.nome.toLowerCase();
+
     // Lançamento do produto no array produtos
     produtos.push(produto);
 }
+
 
 // Função de listar produtos
 function listarProdutos() {
@@ -45,9 +53,22 @@ function listarProdutos() {
     }
 }
 
+function buscarProduto() {
+    let produtoBuscado = prompt('Digite o nome do produto que você quer buscar: ');
+    produtoBuscado = produtoBuscado.toLowerCase();
+    for (let produtoOriginal of produtos) {
 
-
-
+        if (produtoOriginal.nome.toLowerCase() === produtoBuscado.toLowerCase()) {
+            console.log(`Produto: ${produtoOriginal.nome}`);
+            console.log(`Estoque: ${produtoOriginal.estoque}`);
+            console.log(`Estoque minimo: ${produtoOriginal.minimo}`);
+        } else if (produtoOriginal.nome != produtoBuscado) {
+            console.log('Tentando localizar...');
+        } else {
+            console.log('Erro ou produto não existe!');
+        }
+    }
+}
 // Função principal painel
 function painel() {
     // Definir escolha do painel sempre que for executada a função
@@ -80,6 +101,7 @@ function painel() {
             break;
         case '3':
             console.log('Buscando produto...');
+            buscarProduto();
             break;
         case '4':
             console.log('Abrindo atualização de estoque...');
