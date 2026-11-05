@@ -7,33 +7,49 @@ function cadastrarProduto() {
     // Criação do objeto
     let produto = { nome: '', estoque: 0, minimo: 0 };
 
-    // Definir nome,estoque,minimo
+    // Definir nome
     produto.nome = prompt('Nome do produto: ');
-    let estoqueTexto = prompt('Quantidade inicial em estoque: ');
-    let minimoTexto = prompt('Quantidade mínima de estoque: ');
-
-    // Verificação
-    while ((estoqueTexto !== '' && !/^\d+(\.\d+)?$/.test(estoqueTexto)) || (minimoTexto !== '' && !/^\d+(\.\d+)?$/.test(minimoTexto))) {
-        console.log('Entrada inválida! Digite números válidos, sem letras ou valores negativos.');
-
-        estoqueTexto = prompt('Quantidade inicial em estoque: ');
-        minimoTexto = prompt('Quantidade mínima de estoque: ');
-    }
 
     while (produto.nome.trim().length < 1) {
         console.log('Nome inválido! O produto precisa ter um nome e não pode conter apenas espaços.');
         produto.nome = prompt('Nome do produto: ');
     }
 
+    // Padronizar o nome
+    produto.nome = produto.nome.trim().toLowerCase();
+
+    // Verificar se o produto já existe
+    for (let produtoOriginal of produtos) {
+        if (produtoOriginal.nome.trim().toLowerCase() === produto.nome) {
+            console.log('Esse produto já está cadastrado!');
+            return;
+        }
+    }
+
+    // Definir estoque e mínimo
+    let estoqueTexto = prompt('Quantidade inicial em estoque: ');
+    let minimoTexto = prompt('Quantidade mínima de estoque: ');
+
+    // Verificação
+    while (
+        (estoqueTexto !== '' && !/^\d+(\.\d+)?$/.test(estoqueTexto)) ||
+        (minimoTexto !== '' && !/^\d+(\.\d+)?$/.test(minimoTexto))
+    ) {
+        console.log('Entrada inválida! Digite números válidos, sem letras ou valores negativos.');
+
+        estoqueTexto = prompt('Quantidade inicial em estoque: ');
+        minimoTexto = prompt('Quantidade mínima de estoque: ');
+    }
+
     // Converter depois da validação
     produto.estoque = Number(estoqueTexto);
     produto.minimo = Number(minimoTexto);
-    produto.nome = produto.nome.toLowerCase();
 
     // Lançamento do produto no array produtos
     produtos.push(produto);
-}
 
+    console.log('Produto cadastrado com sucesso!');
+}
 
 // Função de listar produtos
 function listarProdutos() {

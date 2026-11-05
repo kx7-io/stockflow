@@ -1,25 +1,30 @@
 # StockFlow
 
-Um gerenciador de estoque feito em **JavaScript** e **Node.js**, executado pelo terminal.
+Um gerenciador de estoque desenvolvido com **JavaScript** e **Node.js**, executado pelo terminal.
 
-O StockFlow é um projeto de estudo que estou desenvolvendo para praticar lógica de programação e aprender a construir aplicações de linha de comando com Node.js.
+O StockFlow é um projeto de estudo criado para praticar lógica de programação e desenvolver aplicações de linha de comando com Node.js.
 
-## O que já funciona
+## Funcionalidades
 
-- **Cadastrar produtos:** informa nome, quantidade inicial em estoque e quantidade mínima.
-- **Validar os dados:** não aceita nome vazio, estoque negativo ou entradas que não resultem em um número válido.
-- **Listar produtos:** mostra os produtos cadastrados, com estoque atual e quantidade mínima.
-- **Avisar quando a lista está vazia:** informa quando ainda não há produtos cadastrados.
+- **Cadastrar produtos:** registra o nome, a quantidade inicial em estoque e a quantidade mínima.
+- **Validar dados:** rejeita nomes vazios, valores negativos e entradas numéricas inválidas. Também aceita quantidades decimais.
+- **Evitar produtos duplicados:** não permite cadastrar produtos com o mesmo nome, mesmo quando há diferenças entre letras maiúsculas e minúsculas ou espaços nas extremidades.
+- **Listar produtos:** exibe os produtos cadastrados e suas informações de estoque.
+- **Buscar produtos:** localiza um produto pelo nome, sem diferenciar letras maiúsculas e minúsculas.
+- **Atualizar estoque:** permite alterar a quantidade atual e a quantidade mínima de um produto.
+- **Remover produtos:** permite excluir um produto após confirmação.
+- **Listar estoque baixo:** exibe os produtos cuja quantidade atual está abaixo da quantidade mínima.
+- **Tratar inventário vazio:** informa quando ainda não existem produtos cadastrados.
 
 ## Menu
 
 ```text
 1 - Cadastrar produto
 2 - Listar produtos
-3 - Buscar produto          (em desenvolvimento)
-4 - Atualizar estoque       (em desenvolvimento)
-5 - Remover produto         (em desenvolvimento)
-6 - Listar estoque baixo    (em desenvolvimento)
+3 - Buscar produto
+4 - Atualizar estoque
+5 - Remover produto
+6 - Listar estoque baixo
 0 - Sair
 ```
 
@@ -27,7 +32,7 @@ O StockFlow é um projeto de estudo que estou desenvolvendo para praticar lógic
 
 - JavaScript
 - Node.js
-- [prompt-sync](https://www.npmjs.com/package/prompt-sync), para receber entradas pelo terminal
+- [prompt-sync](https://www.npmjs.com/package/prompt-sync) — leitura de entradas pelo terminal.
 
 ## Como executar
 
@@ -51,13 +56,13 @@ O StockFlow é um projeto de estudo que estou desenvolvendo para praticar lógic
    npm install
    ```
 
-4. Inicie o programa:
+4. Execute o programa:
 
    ```bash
    node index.js
    ```
 
-## Como os produtos são armazenados
+## Estrutura dos produtos
 
 Cada produto é representado por um objeto com três propriedades:
 
@@ -69,16 +74,15 @@ Cada produto é representado por um objeto com três propriedades:
 }
 ```
 
-Por enquanto, os produtos ficam guardados em memória enquanto o programa está aberto. Ao encerrar a execução, os dados cadastrados são perdidos. A gravação em arquivo JSON está prevista para uma próxima etapa.
+## Limitações atuais
+
+Atualmente, os produtos ficam armazenados apenas na memória enquanto o programa está em execução. Ao fechar o programa, os dados cadastrados são perdidos.
 
 ## Próximas etapas
 
-- [ ] Buscar um produto pelo nome
-- [ ] Atualizar a quantidade em estoque
-- [ ] Remover um produto
-- [ ] Listar produtos com estoque baixo
-- [ ] Salvar e carregar os produtos usando JSON
+- [ ] Salvar e carregar os produtos usando um arquivo JSON com o módulo `fs`.
+- [ ] Continuar melhorando a validação e a organização do código.
 
 ## Status
 
-**Em desenvolvimento.** Novas funções serão adicionadas conforme o projeto evoluir.
+**Em desenvolvimento.** As funcionalidades principais do gerenciador de estoque já foram implementadas.
